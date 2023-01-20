@@ -35,4 +35,16 @@ class Main
     {
         return "do implementation";
     }
+
+    /**
+     * 処理の開始地点。ただし複数の客が連続して購入する場合を処理する
+     *
+     * @param array $vendingMachineCoins 自販機に補充される硬貨
+     * @param array $userInputs (複数の)客の投入額と注文
+     * @return array それぞれに対するおつり
+     */
+    public static function runMulti(array $vendingMachineCoins, array $userInputs): array
+    {
+        return ["do implementation"];
+    }
 }
