@@ -10,7 +10,7 @@ composer install
 
 ## 課題
 
-### 1. `test_もっとも通常のパターン`がパスするように`src`以下を修正する。
+### 1. もっとも通常のパターン
 
 ```shell
 # 確認コマンド
@@ -33,6 +33,45 @@ $menu = 'cola';
 $change = Main::runSimply($coins, $menu);
 
 echo($change); // "nochange" (おつりがない場合)
+```
+
+### ２. 自動販売機の硬貨の枚数を考慮するパターン
+
+```shell
+# 確認コマンド
+composer test-round2
+```
+
+次の条件が通るように、`run`を修正。
+
+```php
+// 自動販売機がもつ硬貨の枚数の状況。50円玉が切れている
+$vendingMachineCoins = [
+    '500' => 999,
+    '100' => 999,
+    '50' => 0,
+    '10' => 999,
+];
+
+// 100円が2枚
+$coins = [
+  '100' => 2,
+  '10' => 2,
+];
+
+// コーヒーは150円とする
+$menu = 'coffee';
+
+// 投入額と注文をまとめておく
+$userInput = [
+  "coins" => $coins,
+  "menu" => $menu,
+];
+
+// 購入処理
+$change = Main::run($vendingMachineCoins, $userInput);
+
+echo($change); // "10 5" (50円を1枚返却したいが無いので、10円を5枚返却する)
 ```
 
 
