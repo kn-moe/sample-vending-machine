@@ -1,0 +1,6 @@
+version: '3'
+services:
+  sample-php:
+    build: .
+    volumes:
+      - .:/opt/php
