@@ -1,5 +1,5 @@
 <?php
-
+namespace src\Model;
 
 class Coins{
 

@@ -2,6 +2,7 @@
 namespace src\Entity;
 
 class Item{
+
     // メニュー
     private $menu;
     // 単価
