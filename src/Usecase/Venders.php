@@ -10,14 +10,22 @@ class Venders implements IVenders{
 
     }
 
-    public function buy(array $coins,array $menu){
-        // コインの合計金額を計算
-        $sumInputAmount = $this->sumInputAmount($coins['coins']);
-        // 購入
-        
-        // おつり計算
+    public const NO_CHANGE = 'nochange';
 
-        return "test";
+    public function buy(array $coins,string $menu){
+        // コインの合計金額を計算
+        $sumInputAmount = $this->sumInputAmount($coins);
+        // 単価取得
+        $unitPrice = $this->getUnitPrice($menu);
+        // おつり計算
+        $changeCoinStr = $this->calChangeCoins($sumInputAmount,$unitPrice);
+        
+        // お釣りなしの場合は文字列で返す
+        if($changeCoinStr === ""){
+            return self::NO_CHANGE;
+        }
+        // おつり
+        return $changeCoinStr;
     }
     /**
      * 投入金額を計算
@@ -29,7 +37,20 @@ class Venders implements IVenders{
     /**
      * メニューから単価を取得する
      */
-    private function getUnitPrice(){
+    private function getUnitPrice(string $menu){
+        return Menus::ENUM_MENUS[$menu];
+    }
+    /**
+     * お釣り計算
+     * @return array
+     */
+    private function calChangeCoins($sumInputAmount,$unitPrice){
+        // お釣り金額
+        // NOTE: お釣りがマイナス等のエラーは考慮しない
+        $changeAmount = $sumInputAmount - $unitPrice;
+
+        $coins = new Coins();
+        return $coins->calcCoins($changeAmount);
     }
 
 }

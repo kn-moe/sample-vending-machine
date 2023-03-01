@@ -22,7 +22,7 @@ class Main
     public static function runSimply(array $coins, string $menu): string
     {   
         $vender = new Venders();
-        $ret = $vender->buy();
+        $ret = $vender->buy($coins,$menu);
         return $ret;
     }
 
