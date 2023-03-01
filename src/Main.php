@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use src\Usecase\Venders;
+
 /**
  * メインクラス。
  * 原則ここにロジックは書かないこと。
@@ -18,8 +20,10 @@ class Main
      * - 100円3枚、50円1枚、10円3枚なら"100 3 50 1 10 3"
      */
     public static function runSimply(array $coins, string $menu): string
-    {
-        return "do implementation";
+    {   
+        $vender = new Venders();
+        $ret = $vender->buy($coins,$menu);
+        return $ret;
     }
 
     /**
